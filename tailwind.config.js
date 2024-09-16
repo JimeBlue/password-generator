@@ -12,17 +12,17 @@ export default {
     extend: {
       colors: {
         brand: {
-          50: '#92CCFF',
-          100: '#7DC3FF',
-          200: '#54B0FF',
-          300: '#2C9DFF',
-          400: '#038AFF',
-          500: '#0074D9',
-          600: '#0056A1',
-          700: '#003869',
-          800: '#001A31',
-          900: '#000000',
-          950: '#000000',
+          50: '#FFFFFF',
+          100: '#FFFFFF',
+          200: '#FFFFFF',
+          300: '#F6FFF7',
+          400: '#CDFFD3',
+          500: '#A4FFAF',
+          600: '#6CFF7E',
+          700: '#34FF4C',
+          800: '#00FB1E',
+          900: '#00C318',
+          950: '#00A714',
         },
         secondary: '#6B7280',
       },
@@ -42,11 +42,11 @@ export default {
     ({ addComponents, theme }) => {
       addComponents({
         '.container': {
-          width: '100%',
-          marginLeft: 'auto',
-          marginRight: 'auto',
-          paddingLeft: theme('spacing.4'),
-          paddingRight: theme('spacing.4'),
+          'width': '100%',
+          'marginLeft': 'auto',
+          'marginRight': 'auto',
+          'paddingLeft': theme('spacing.4'),
+          'paddingRight': theme('spacing.4'),
           '@screen lg': {
             maxWidth: '1200px',
             paddingLeft: theme('spacing.5'),
