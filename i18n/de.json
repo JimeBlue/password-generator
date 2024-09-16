@@ -1,0 +1,19 @@
+{
+  "footer": {
+    "legal": "Rechtliche",
+    "cookies": "Cookies",
+    "imprint": "Impressum",
+    "data_privacy": "Datenschutz"
+  },
+  "meta": {
+    "name": "Boilerplate Basic JimeBlue",
+    "title": "Boilerplate Basic JimeBlue"
+  },
+  "navigation": {
+    "home": "Willkommen",
+    "info": "Informationen"
+  },
+  "welcome": {
+    "title": "Willkommen!"
+  }
+}
