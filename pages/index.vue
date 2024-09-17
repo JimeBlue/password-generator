@@ -38,10 +38,18 @@
           <UCheckbox v-model="form.includeSymbols" />
         </UFormGroup>
 
-        <!-- Submit button -->
         <UButton type="submit">
           Generate
         </UButton>
+
+        <div v-if="generatedPassword" class="mt-4">
+          <h2 class="text-lg font-bold">
+            Generated Password:
+          </h2>
+          <p class="font-mono text-brand-500">
+            {{ generatedPassword }}
+          </p>
+        </div>
       </UForm>
     </div>
   </section>
@@ -58,6 +66,9 @@ const form = ref({
   includeNumbers: true,
   includeSymbols: false,
 })
+
+// Store the generated password
+const generatedPassword = ref('')
 
 // Zod schema for basic validation
 const zodSchema = z.object({
@@ -95,9 +106,44 @@ function validate(state) {
   return errors
 }
 
-// Form submit handler (doesn't need to submit to backend)
+// Function to generate the password
+function generatePassword() {
+  const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const lowercase = 'abcdefghijklmnopqrstuvwxyz'
+  const numbers = '0123456789'
+  const symbols = '!@#$%^&*()_+[]{}|;:,.<>?'
+
+  let availableCharacters = ''
+  if (form.value.includeUppercase) { availableCharacters += uppercase }
+  if (form.value.includeLowercase) { availableCharacters += lowercase }
+  if (form.value.includeNumbers) { availableCharacters += numbers }
+  if (form.value.includeSymbols) { availableCharacters += symbols }
+
+  // Ensure there are available characters based on selected options
+  if (availableCharacters === '') {
+    generatedPassword.value = 'Please select at least one option'
+    return
+  }
+
+  let password = ''
+  for (let i = 0; i < form.value.passwordLength; i++) {
+    const randomIndex = Math.floor(Math.random() * availableCharacters.length)
+    password += availableCharacters[randomIndex]
+  }
+
+  generatedPassword.value = password
+}
+
+// Form submit handler (trigger password generation)
 async function onSubmit(event) {
-  console.log(event.data)
+  const errors = validate(form.value)
+
+  if (errors.length === 0) {
+    generatePassword()
+  }
+  else {
+    console.log('Validation errors:', errors)
+  }
 }
 
 // Error handler
