@@ -5,15 +5,19 @@
         {{ $t('welcome.title') }}
       </h1>
       <UForm
-        ref="formRef"
         :state="form"
         :validate="validate"
         autocomplete="off"
         @submit="onSubmit"
         @error="onError"
       >
+        <!-- Character length label and value -->
+        <div class="mb-2 flex justify-between">
+          <span>Character Length</span>
+          <span>{{ form.passwordLength }}</span>
+        </div>
         <!-- Character length slider -->
-        <UFormGroup label="Character Length" name="passwordLength">
+        <UFormGroup name="passwordLength">
           <URange v-model="form.passwordLength" :min="8" :max="20" />
         </UFormGroup>
 
