@@ -51,13 +51,22 @@
         </UButton>
 
         <!-- Display generated password and its strength -->
-        <div v-if="generatedPassword" class="mt-4">
-          <h2 class="text-lg font-bold">
-            Generated Password:
-          </h2>
-          <p class="font-mono text-brand-500">
-            {{ generatedPassword }}
-          </p>
+        <div v-if="generatedPassword" class="mt-4 ">
+          <div class="flex items-center space-x-4">
+            <div>
+              <h2 class="text-lg font-bold">
+                Generated Password:
+              </h2>
+              <p class="font-mono text-brand-500">
+                {{ generatedPassword }}
+              </p>
+            </div>
+            <!-- Copy to clipboard button -->
+            <button type="button" class="ml-4 text-brand-500 hover:text-brand-700" @click="copyToClipboard">
+              <UIcon name="material-symbols:content-copy-outline-rounded" />
+            </button>
+          </div>
+          <br>
           <h3 class="mt-2 text-lg font-bold">
             Strength: {{ passwordStrength }}
           </h3>
@@ -186,6 +195,19 @@ function calculateStrength(password) {
   }
   else {
     passwordStrength.value = 'Strong'
+  }
+}
+
+// Function to copy generated password to clipboard
+function copyToClipboard() {
+  if (generatedPassword.value) {
+    navigator.clipboard.writeText(generatedPassword.value)
+      .then(() => {
+        console.log('Password copied to clipboard')
+      })
+      .catch((err) => {
+        console.error('Failed to copy password: ', err)
+      })
   }
 }
 
