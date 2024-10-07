@@ -41,7 +41,7 @@
         <UButton type="submit">
           Generate
         </UButton>
-
+        <!-- Display generated password and its strength -->
         <div v-if="generatedPassword" class="mt-4">
           <h2 class="text-lg font-bold">
             Generated Password:
@@ -49,6 +49,9 @@
           <p class="font-mono text-brand-500">
             {{ generatedPassword }}
           </p>
+          <h3 class="mt-2 text-lg font-bold">
+            Strength: {{ passwordStrength }}
+          </h3>
         </div>
       </UForm>
     </div>
@@ -67,8 +70,9 @@ const form = ref({
   includeSymbols: false,
 })
 
-// Store the generated password
+// Store the generated password and its strength
 const generatedPassword = ref('')
+const passwordStrength = ref('')
 
 // Zod schema for basic validation
 const zodSchema = z.object({
@@ -132,6 +136,43 @@ function generatePassword() {
   }
 
   generatedPassword.value = password
+
+  // After generating the password, calculate its strength
+  calculateStrength(password)
+}
+
+// Function to calculate password strength
+// Strength Logic:
+// If the password is very short or uses limited character types, it's classified as "Weak."
+// If the password uses multiple character types and is of moderate length, it's "Medium."
+// If it uses many character types and is long enough, it's classified as "Strong."
+
+function calculateStrength(password) {
+  const length = password.length
+  const hasUppercase = /[A-Z]/.test(password)
+  const hasLowercase = /[a-z]/.test(password)
+  const hasNumbers = /\d/.test(password)
+  const hasSymbols = /[!@#$%^&*()_+[\]{}|;:,.<>?]/.test(password)
+
+  // Basic scoring criteria
+  let strengthScore = 0
+  if (length >= 8) { strengthScore++ }
+  if (length >= 15) { strengthScore++ }
+  if (hasUppercase) { strengthScore++ }
+  if (hasLowercase) { strengthScore++ }
+  if (hasNumbers) { strengthScore++ }
+  if (hasSymbols) { strengthScore++ }
+
+  // Determine strength level based on the score
+  if (strengthScore <= 2) {
+    passwordStrength.value = 'Weak'
+  }
+  else if (strengthScore <= 4) {
+    passwordStrength.value = 'Medium'
+  }
+  else {
+    passwordStrength.value = 'Strong'
+  }
 }
 
 // Form submit handler (trigger password generation)
