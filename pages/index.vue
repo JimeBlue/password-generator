@@ -6,7 +6,6 @@
       </h1>
       <UForm
         :state="form"
-        :validate="validate"
         autocomplete="off"
         @submit="onSubmit"
         @error="onError"
@@ -16,9 +15,13 @@
           <span>Character Length</span>
           <span>{{ form.passwordLength }}</span>
         </div>
+
         <!-- Character length slider -->
         <UFormGroup name="passwordLength">
           <URange v-model="form.passwordLength" :min="8" :max="20" />
+          <div v-if="errors.passwordLength" class="mt-1 text-red-500">
+            {{ errors.passwordLength }}
+          </div>
         </UFormGroup>
 
         <!-- Checkboxes for character type inclusion -->
@@ -38,9 +41,15 @@
           <UCheckbox v-model="form.includeSymbols" />
         </UFormGroup>
 
+        <!-- Show validation error if no character types are selected -->
+        <div v-if="errors.characterTypes" class="mt-2 text-red-500">
+          {{ errors.characterTypes }}
+        </div>
+
         <UButton type="submit">
           Generate
         </UButton>
+
         <!-- Display generated password and its strength -->
         <div v-if="generatedPassword" class="mt-4">
           <h2 class="text-lg font-bold">
@@ -74,6 +83,9 @@ const form = ref({
 const generatedPassword = ref('')
 const passwordStrength = ref('')
 
+// Reactive errors object to store validation errors
+const errors = reactive({})
+
 // Zod schema for basic validation
 const zodSchema = z.object({
   passwordLength: z.number().min(8, 'Password must be at least 8 characters').max(20, 'Password cannot exceed 20 characters'),
@@ -85,30 +97,38 @@ const zodSchema = z.object({
 
 // Custom validation logic
 function validate(state) {
-  const errors = []
+  // Clear previous errors
+  Object.keys(errors).forEach(key => delete errors[key])
 
   // Validate with Zod
   const result = zodSchema.safeParse(state)
 
   if (!result.success) {
     result.error.errors.forEach((error) => {
-      errors.push({
-        path: error.path.join('.'),
-        message: error.message,
-      })
+      errors[error.path.join('.')] = error.message
     })
   }
 
   // Additional custom validation: ensure at least one checkbox is selected
   if (!state.includeUppercase && !state.includeLowercase && !state.includeNumbers && !state.includeSymbols) {
-    errors.push({
-      path: 'includeUppercase', // Could be any checkbox path
-      message: 'At least one character type must be selected',
-    })
+    errors.characterTypes = 'At least one character type must be selected'
   }
 
-  return errors
+  return Object.keys(errors).length === 0
 }
+
+// Watch for changes in checkbox values to clear the character type error
+watch(
+  () => [form.value.includeUppercase, form.value.includeLowercase, form.value.includeNumbers, form.value.includeSymbols],
+  (newValues) => {
+    if (newValues.some(value => value)) {
+      delete errors.characterTypes
+    }
+    else {
+      errors.characterTypes = 'At least one character type must be selected'
+    }
+  },
+)
 
 // Function to generate the password
 function generatePassword() {
@@ -141,49 +161,10 @@ function generatePassword() {
   calculateStrength(password)
 }
 
-// Function to calculate password strength
-// Strength Logic:
-// If the password is very short or uses limited character types, it's classified as "Weak."
-// If the password uses multiple character types and is of moderate length, it's "Medium."
-// If it uses many character types and is long enough, it's classified as "Strong."
-
-function calculateStrength(password) {
-  const length = password.length
-  const hasUppercase = /[A-Z]/.test(password)
-  const hasLowercase = /[a-z]/.test(password)
-  const hasNumbers = /\d/.test(password)
-  const hasSymbols = /[!@#$%^&*()_+[\]{}|;:,.<>?]/.test(password)
-
-  // Basic scoring criteria
-  let strengthScore = 0
-  if (length >= 8) { strengthScore++ }
-  if (length >= 15) { strengthScore++ }
-  if (hasUppercase) { strengthScore++ }
-  if (hasLowercase) { strengthScore++ }
-  if (hasNumbers) { strengthScore++ }
-  if (hasSymbols) { strengthScore++ }
-
-  // Determine strength level based on the score
-  if (strengthScore <= 2) {
-    passwordStrength.value = 'Weak'
-  }
-  else if (strengthScore <= 4) {
-    passwordStrength.value = 'Medium'
-  }
-  else {
-    passwordStrength.value = 'Strong'
-  }
-}
-
 // Form submit handler (trigger password generation)
 async function onSubmit(event) {
-  const errors = validate(form.value)
-
-  if (errors.length === 0) {
+  if (validate(form.value)) {
     generatePassword()
-  }
-  else {
-    console.log('Validation errors:', errors)
   }
 }
 
