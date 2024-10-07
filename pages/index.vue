@@ -64,6 +64,7 @@
             <!-- Copy to clipboard button -->
             <button type="button" class="ml-4 text-brand-500 hover:text-brand-700" @click="copyToClipboard">
               <UIcon name="material-symbols:content-copy-outline-rounded" />
+              <span v-if="copied">COPIED</span>
             </button>
           </div>
           <br>
@@ -91,6 +92,9 @@ const form = ref({
 // Store the generated password and its strength
 const generatedPassword = ref('')
 const passwordStrength = ref('')
+
+// State to track whether the password is copied
+const copied = ref(false)
 
 // Reactive errors object to store validation errors
 const errors = reactive({})
@@ -203,7 +207,13 @@ function copyToClipboard() {
   if (generatedPassword.value) {
     navigator.clipboard.writeText(generatedPassword.value)
       .then(() => {
+        copied.value = true // Set copied to true when successful
         console.log('Password copied to clipboard')
+
+        // Reset the copied status after a delay (e.g., 2 seconds)
+        setTimeout(() => {
+          copied.value = false
+        }, 2000)
       })
       .catch((err) => {
         console.error('Failed to copy password: ', err)
