@@ -161,6 +161,34 @@ function generatePassword() {
   calculateStrength(password)
 }
 
+function calculateStrength(password) {
+  const length = password.length
+  const hasUppercase = /[A-Z]/.test(password)
+  const hasLowercase = /[a-z]/.test(password)
+  const hasNumbers = /\d/.test(password)
+  const hasSymbols = /[!@#$%^&*()_+[\]{}|;:,.<>?]/.test(password)
+
+  // Basic scoring criteria
+  let strengthScore = 0
+  if (length >= 8) { strengthScore++ }
+  if (length >= 15) { strengthScore++ }
+  if (hasUppercase) { strengthScore++ }
+  if (hasLowercase) { strengthScore++ }
+  if (hasNumbers) { strengthScore++ }
+  if (hasSymbols) { strengthScore++ }
+
+  // Determine strength level based on the score
+  if (strengthScore <= 2) {
+    passwordStrength.value = 'Weak'
+  }
+  else if (strengthScore <= 4) {
+    passwordStrength.value = 'Medium'
+  }
+  else {
+    passwordStrength.value = 'Strong'
+  }
+}
+
 // Form submit handler (trigger password generation)
 async function onSubmit(event) {
   if (validate(form.value)) {
