@@ -71,6 +71,13 @@
           <h3 class="mt-2 text-lg font-bold">
             Strength: {{ passwordStrength }}
           </h3>
+          <!-- Password strength meter -->
+          <div class="mt-2 flex space-x-1">
+            <div class="h-6 w-4" :class="[strengthClass(1)]" />
+            <div class="h-6 w-4" :class="[strengthClass(2)]" />
+            <div class="h-6 w-4" :class="[strengthClass(3)]" />
+            <div class="h-6 w-4" :class="[strengthClass(4)]" />
+          </div>
         </div>
       </UForm>
     </div>
@@ -174,7 +181,8 @@ function generatePassword() {
   calculateStrength(password)
 }
 
-function calculateStrength(password) {
+// Reusable function to calculate the strength score of a given password
+function getStrengthScore(password) {
   const length = password.length
   const hasUppercase = /[A-Z]/.test(password)
   const hasLowercase = /[a-z]/.test(password)
@@ -190,7 +198,13 @@ function calculateStrength(password) {
   if (hasNumbers) { strengthScore++ }
   if (hasSymbols) { strengthScore++ }
 
-  // Determine strength level based on the score
+  return strengthScore
+}
+
+// Determine strength level based on the score
+function calculateStrength(password) {
+  const strengthScore = getStrengthScore(password)
+
   if (strengthScore <= 2) {
     passwordStrength.value = 'Weak'
   }
@@ -200,6 +214,29 @@ function calculateStrength(password) {
   else {
     passwordStrength.value = 'Strong'
   }
+}
+
+// Function to determine the tailwind class for each strength block based on score
+function strengthClass(level) {
+  const score = getPasswordStrengthScore()
+
+  if (score >= level) {
+    if (score <= 2) {
+      return 'bg-red-500'
+    }
+    else if (score <= 4) {
+      return 'bg-yellow-500'
+    }
+    else {
+      return 'bg-green-500'
+    }
+  }
+  return 'bg-gray-300'
+}
+
+// Function to get password strength score using the reusable helper
+function getPasswordStrengthScore() {
+  return getStrengthScore(generatedPassword.value)
 }
 
 // Function to copy generated password to clipboard
