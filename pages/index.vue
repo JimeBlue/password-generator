@@ -222,13 +222,13 @@ function strengthClass(level) {
 
   if (score >= level) {
     if (score <= 2) {
-      return 'bg-red-500'
+      return 'bg-carnation'
     }
     else if (score <= 4) {
-      return 'bg-yellow-500'
+      return 'bg-cream'
     }
     else {
-      return 'bg-green-500'
+      return 'bg-brand-700'
     }
   }
   return 'bg-gray-300'

@@ -25,6 +25,8 @@ export default {
           950: '#00A714',
         },
         secondary: '#6B7280',
+        carnation: '#F64A4A',
+        cream: '#F8CD65',
       },
       fontFamily: {
         body: [
