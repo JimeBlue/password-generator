@@ -4,6 +4,22 @@
       <h1 class="text-2xl font-bold text-brand-500">
         {{ $t('welcome.title') }}
       </h1>
+      <!-- Display generated password and its strength -->
+      <div class="flex items-center space-x-4">
+        <div>
+          <h2 class="text-lg font-bold">
+            Generated Password:
+          </h2>
+          <p class="font-mono text-brand-500">
+            {{ generatedPassword }}
+          </p>
+        </div>
+        <!-- Copy to clipboard button -->
+        <button type="button" class="ml-4 text-brand-500 hover:text-brand-700" @click="copyToClipboard">
+          <UIcon name="material-symbols:content-copy-outline-rounded" />
+          <span v-if="copied">COPIED</span>
+        </button>
+      </div>
       <UForm
         :state="form"
         autocomplete="off"
@@ -46,32 +62,12 @@
           {{ errors.characterTypes }}
         </div>
 
-        <UButton type="submit">
-          Generate
-        </UButton>
-
-        <!-- Display generated password and its strength -->
-        <div v-if="generatedPassword" class="mt-4 ">
-          <div class="flex items-center space-x-4">
-            <div>
-              <h2 class="text-lg font-bold">
-                Generated Password:
-              </h2>
-              <p class="font-mono text-brand-500">
-                {{ generatedPassword }}
-              </p>
-            </div>
-            <!-- Copy to clipboard button -->
-            <button type="button" class="ml-4 text-brand-500 hover:text-brand-700" @click="copyToClipboard">
-              <UIcon name="material-symbols:content-copy-outline-rounded" />
-              <span v-if="copied">COPIED</span>
-            </button>
-          </div>
-          <br>
+        <!-- Password strength meter -->
+        <div class="mt-4 ">
           <h3 class="mt-2 text-lg font-bold">
             Strength: {{ passwordStrength }}
           </h3>
-          <!-- Password strength meter -->
+
           <div class="mt-2 flex space-x-1">
             <div class="h-6 w-4" :class="[strengthClass(1)]" />
             <div class="h-6 w-4" :class="[strengthClass(2)]" />
@@ -79,6 +75,10 @@
             <div class="h-6 w-4" :class="[strengthClass(4)]" />
           </div>
         </div>
+
+        <UButton type="submit">
+          Generate
+        </UButton>
       </UForm>
     </div>
   </section>
