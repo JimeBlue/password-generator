@@ -4,22 +4,19 @@
       <h1 class="text-center text-lg font-bold text-gray-500 sm:text-2xl">
         {{ $t('welcome.title') }}
       </h1>
-      <!-- Display generated password and its strength -->
-      <div class="flex items-center space-x-4">
-        <div>
-          <h2 class="text-lg font-bold">
-            Generated Password:
-          </h2>
-          <p class="font-mono ">
-            {{ generatedPassword }}
-          </p>
-        </div>
+      <!-- NOTE: Display generated password -->
+      <div class="my-10 flex items-center justify-between space-x-4 bg-gray-800 p-5">
+        <!-- password -->
+        <p class="text-2xl md:text-3xl">
+          {{ generatedPassword }}
+        </p>
         <!-- Copy to clipboard button -->
-        <button type="button" class="ml-4 " @click="copyToClipboard">
-          <UIcon name="material-symbols:content-copy-outline-rounded" />
-          <span v-if="copied">COPIED</span>
+        <button type="button" @click="copyToClipboard">
+          <span v-if="copied" class="mr-3 text-base uppercase text-brand-500 md:text-lg">copied</span>
+          <UIcon name="material-symbols:content-copy-outline-rounded" class="size-5 text-brand-500 hover:text-white md:size-7" />
         </button>
       </div>
+      <!-- NOTE: form -->
       <UForm
         :state="form"
         autocomplete="off"
