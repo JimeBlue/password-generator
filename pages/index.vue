@@ -1,13 +1,13 @@
 <template>
-  <section class="grid h-screen place-items-center px-6 text-gray-200 sm:px-0">
+  <section class="grid h-screen place-items-center px-6  sm:px-0">
     <div class="w-full sm:w-[540px]">
-      <h1 class="text-center text-lg font-bold text-gray-500 sm:text-2xl">
+      <h1 class="text-center text-lg font-bold text-topaz-500 sm:text-2xl">
         {{ $t('welcome.title') }}
       </h1>
       <!-- NOTE: Display generated password -->
-      <div class="my-10 flex items-center justify-between space-x-4 bg-gray-800 p-5">
+      <div class="mt-10 flex items-center justify-between space-x-4 bg-topaz-800 p-5">
         <!-- password -->
-        <p class="text-2xl md:text-3xl">
+        <p class="text-2xl text-gray-200 md:text-3xl">
           {{ generatedPassword }}
         </p>
         <!-- Copy to clipboard button -->
@@ -20,37 +20,44 @@
       <UForm
         :state="form"
         autocomplete="off"
+        class="mt-5 bg-topaz-800 p-5"
         @submit="onSubmit"
         @error="onError"
       >
-        <!-- Character length label and value -->
-        <div class="mb-2 flex justify-between">
-          <span>Character Length</span>
-          <span>{{ form.passwordLength }}</span>
-        </div>
-
-        <!-- Character length slider -->
-        <UFormGroup name="passwordLength">
-          <URange v-model="form.passwordLength" :min="8" :max="20" />
-          <div v-if="errors.passwordLength" class="mt-1 text-red-500">
-            {{ errors.passwordLength }}
+        <!-- Character length -->
+        <article class="space-y-6">
+          <div class="mb-2 flex justify-between">
+            <span class="text-lg text-gray-200">Character Length</span>
+            <span class="text-3xl text-brand-500">{{ form.passwordLength }}</span>
           </div>
-        </UFormGroup>
+          <UFormGroup name="passwordLength">
+            <URange
+              v-model="form.passwordLength"
+              :min="8"
+              :max="20"
+              size="md"
+            />
+
+            <div v-if="errors.passwordLength" class="mt-1 text-red-500">
+              {{ errors.passwordLength }}
+            </div>
+          </UFormGroup>
+        </article>
 
         <!-- Checkboxes for character type inclusion -->
-        <UFormGroup label="Include Uppercase Letters" name="includeUppercase">
+        <UFormGroup label="Include Uppercase Letters" name="includeUppercase" size="lg">
           <UCheckbox v-model="form.includeUppercase" />
         </UFormGroup>
 
-        <UFormGroup label="Include Lowercase Letters" name="includeLowercase">
+        <UFormGroup label="Include Lowercase Letters" name="includeLowercase" size="lg">
           <UCheckbox v-model="form.includeLowercase" />
         </UFormGroup>
 
-        <UFormGroup label="Include Numbers" name="includeNumbers">
+        <UFormGroup label="Include Numbers" name="includeNumbers" size="lg">
           <UCheckbox v-model="form.includeNumbers" />
         </UFormGroup>
 
-        <UFormGroup label="Include Symbols" name="includeSymbols">
+        <UFormGroup label="Include Symbols" name="includeSymbols" size="lg">
           <UCheckbox v-model="form.includeSymbols" />
         </UFormGroup>
 
