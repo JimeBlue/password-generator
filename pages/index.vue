@@ -184,12 +184,32 @@ function generatePassword() {
 // Reusable function to calculate the strength score of a given password
 function getStrengthScore(password) {
   const length = password.length
-  const hasUppercase = /[A-Z]/.test(password)
-  const hasLowercase = /[a-z]/.test(password)
-  const hasNumbers = /\d/.test(password)
-  const hasSymbols = /[!@#$%^&*()_+[\]{}|;:,.<>?]/.test(password)
+  const hasUppercase = form.value.includeUppercase
+  const hasLowercase = form.value.includeLowercase
+  const hasNumbers = form.value.includeNumbers
+  const hasSymbols = form.value.includeSymbols
 
-  // Basic scoring criteria
+  // Count how many character types are selected
+  let selectedCharacterTypes = 0
+  if (hasUppercase) { selectedCharacterTypes++ }
+  if (hasLowercase) { selectedCharacterTypes++ }
+  if (hasNumbers) { selectedCharacterTypes++ }
+  if (hasSymbols) { selectedCharacterTypes++ }
+
+  // Scoring criteria:
+  // If only 2 character types are selected
+  if (selectedCharacterTypes === 2) {
+    if (length > 12) {
+      // Medium strength if length > 12
+      return 3 // Medium strength
+    }
+    else {
+      // Weak strength if length <= 12
+      return 1 // Weak strength
+    }
+  }
+
+  // If more than 2 character types are selected
   let strengthScore = 0
   if (length >= 8) { strengthScore++ }
   if (length >= 15) { strengthScore++ }
