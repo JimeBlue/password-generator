@@ -25,7 +25,7 @@
         @error="onError"
       >
         <!-- Character length -->
-        <article class="space-y-6">
+        <article class="space-y-5">
           <div class="mb-2 flex justify-between">
             <span class="text-lg text-gray-200">Character Length</span>
             <span class="text-3xl text-brand-500">{{ form.passwordLength }}</span>
@@ -45,21 +45,23 @@
         </article>
 
         <!-- Checkboxes for character type inclusion -->
-        <UFormGroup label="Include Uppercase Letters" name="includeUppercase" size="lg">
-          <UCheckbox v-model="form.includeUppercase" />
-        </UFormGroup>
-
-        <UFormGroup label="Include Lowercase Letters" name="includeLowercase" size="lg">
-          <UCheckbox v-model="form.includeLowercase" />
-        </UFormGroup>
-
-        <UFormGroup label="Include Numbers" name="includeNumbers" size="lg">
-          <UCheckbox v-model="form.includeNumbers" />
-        </UFormGroup>
-
-        <UFormGroup label="Include Symbols" name="includeSymbols" size="lg">
-          <UCheckbox v-model="form.includeSymbols" />
-        </UFormGroup>
+        <article class="mt-10 space-y-4">
+          <UFormGroup
+            name="includeUppercase"
+            size="lg"
+          >
+            <UCheckbox v-model="form.includeUppercase" label="Include Uppercase Letters" />
+          </UFormGroup>
+          <UFormGroup name="includeLowercase" size="lg">
+            <UCheckbox v-model="form.includeLowercase" label="Include Lowercase Letters" />
+          </UFormGroup>
+          <UFormGroup name="includeNumbers" size="lg">
+            <UCheckbox v-model="form.includeNumbers" label="Include Lowercase Letters" />
+          </UFormGroup>
+          <UFormGroup name="includeSymbols" size="lg">
+            <UCheckbox v-model="form.includeSymbols" label="Include Symbols" />
+          </UFormGroup>
+        </article>
 
         <!-- Show validation error if no character types are selected -->
         <div v-if="errors.characterTypes" class="mt-2 text-red-500">

@@ -90,8 +90,12 @@ export default defineAppConfig({
       variant: inputDefinition.variant,
     },
     checkbox: {
+      wrapper: 'relative flex items-center',
       container: defaults.height,
-      base: defaults.size,
+      base: 'h-5 w-5 dark:checked:bg-current dark:checked:border-transparent dark:indeterminate:bg-current dark:indeterminate:border-transparent disabled:opacity-50 disabled:cursor-not-allowed focus:ring-0 focus:ring-transparent focus:ring-offset-transparent',
+      rounded: 'rounded-none',
+
+      label: 'text-lg font-medium text-gray-200 dark:text-gray-200',
     },
     radio: {
       container: defaults.height,
