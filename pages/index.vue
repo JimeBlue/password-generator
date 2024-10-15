@@ -103,6 +103,9 @@ const passwordStrength = ref('')
 // State to track whether the password is copied
 const copied = ref(false)
 
+// New state to store the last calculated strength score
+const strengthScore = ref(0)
+
 // Reactive errors object to store validation errors
 const errors = reactive({})
 
@@ -137,19 +140,6 @@ function validate(state) {
   return Object.keys(errors).length === 0
 }
 
-// Watch for changes in checkbox values to clear the character type error
-watch(
-  () => [form.value.includeUppercase, form.value.includeLowercase, form.value.includeNumbers, form.value.includeSymbols],
-  (newValues) => {
-    if (newValues.some(value => value)) {
-      delete errors.characterTypes
-    }
-    else {
-      errors.characterTypes = 'At least one character type must be selected'
-    }
-  },
-)
-
 // Function to generate the password
 function generatePassword() {
   const uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -178,6 +168,7 @@ function generatePassword() {
   generatedPassword.value = password
 
   // After generating the password, calculate its strength
+  strengthScore.value = getStrengthScore(password)
   calculateStrength(password)
 }
 
@@ -223,12 +214,12 @@ function getStrengthScore(password) {
 
 // Determine strength level based on the score
 function calculateStrength(password) {
-  const strengthScore = getStrengthScore(password)
+  const score = strengthScore.value
 
-  if (strengthScore <= 2) {
+  if (score <= 2) {
     passwordStrength.value = 'Weak'
   }
-  else if (strengthScore <= 4) {
+  else if (score <= 4) {
     passwordStrength.value = 'Medium'
   }
   else {
@@ -238,7 +229,8 @@ function calculateStrength(password) {
 
 // Function to determine the tailwind class for each strength block based on score
 function strengthClass(level) {
-  const score = getPasswordStrengthScore()
+  // Get the current calculated strength score, not real-time from checkboxes
+  const score = strengthScore.value
 
   // For weak passwords (score <= 2), fill 1-2 bars
   if (score <= 2 && level <= score) {
@@ -257,11 +249,6 @@ function strengthClass(level) {
 
   // Any unfilled bars will be gray
   return 'bg-gray-300'
-}
-
-// Function to get password strength score using the reusable helper
-function getPasswordStrengthScore() {
-  return getStrengthScore(generatedPassword.value)
 }
 
 // Function to copy generated password to clipboard
@@ -285,13 +272,13 @@ function copyToClipboard() {
 
 // Trigger default password generation when the component is mounted
 onMounted(() => {
-  generatePassword()
+  generatePassword() // Generate the initial password
 })
 
 // Form submit handler (trigger password generation)
 async function onSubmit(event) {
   if (validate(form.value)) {
-    generatePassword()
+    generatePassword() // Only calculate strength after generation
   }
 }
 
