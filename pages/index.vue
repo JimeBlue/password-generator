@@ -7,7 +7,7 @@
       <!-- NOTE: Display generated password -->
       <div class="mt-10 flex items-center justify-between space-x-4 bg-topaz-800 p-5">
         <!-- password -->
-        <p class="text-2xl text-gray-200 md:text-3xl">
+        <p class="text-xl text-gray-200 sm:text-2xl md:text-3xl">
           {{ generatedPassword }}
         </p>
         <!-- Copy to clipboard button -->
@@ -68,12 +68,12 @@
           {{ errors.characterTypes }}
         </div>
         <!-- Password strength meter -->
-        <article class="mt-4 flex items-center justify-between bg-topaz-900 px-8 py-4">
-          <h3 class="text-lg font-bold uppercase">
+        <article class="mt-4 flex items-center justify-between bg-topaz-900 p-4 sm:px-8">
+          <h3 class="text-base font-bold uppercase sm:text-lg">
             <span class="text-topaz-500">Strength</span>
           </h3>
           <div class="flex items-center space-x-2">
-            <p class="text-xl uppercase text-gray-200">
+            <p class="text-lg uppercase text-gray-200 sm:text-xl">
               {{ passwordStrength }}
             </p>
             <ul class="flex space-x-1">
