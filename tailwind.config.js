@@ -30,13 +30,13 @@ export default {
       },
       fontFamily: {
         body: [
-          'Work Sans',
+          'JetBrainsMono',
           'Roboto',
           '"Helvetica Neue"',
           'Arial',
           'sans-serif',
         ],
-        headline: ['Montserrat', 'Arial', 'sans-serif'],
+        headline: ['JetBrainsMono', 'Arial', 'sans-serif'],
       },
     },
   },
