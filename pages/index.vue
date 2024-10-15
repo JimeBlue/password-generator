@@ -1,7 +1,7 @@
 <template>
   <section class="grid h-screen place-items-center px-6 text-gray-200 sm:px-0">
     <div class="w-full sm:w-[540px]">
-      <h1 class="text-2xl font-bold">
+      <h1 class="text-center text-lg font-bold text-gray-500 sm:text-2xl">
         {{ $t('welcome.title') }}
       </h1>
       <!-- Display generated password and its strength -->
