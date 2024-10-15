@@ -67,21 +67,23 @@
         <div v-if="errors.characterTypes" class="mt-2 text-red-500">
           {{ errors.characterTypes }}
         </div>
-
         <!-- Password strength meter -->
-        <div class="mt-4 ">
-          <h3 class="mt-2 text-lg font-bold">
-            Strength: {{ passwordStrength }}
+        <article class="mt-4 flex items-center justify-between bg-topaz-900 px-8 py-4">
+          <h3 class="text-lg font-bold uppercase">
+            <span class="text-topaz-500">Strength</span>
           </h3>
-
-          <div class="mt-2 flex space-x-1">
-            <div class="h-6 w-4" :class="[strengthClass(1)]" />
-            <div class="h-6 w-4" :class="[strengthClass(2)]" />
-            <div class="h-6 w-4" :class="[strengthClass(3)]" />
-            <div class="h-6 w-4" :class="[strengthClass(4)]" />
+          <div class="flex items-center space-x-2">
+            <p class="text-xl uppercase text-gray-200">
+              {{ passwordStrength }}
+            </p>
+            <ul class="flex space-x-1">
+              <li class="h-6 w-4" :class="[strengthClass(1)]" />
+              <li class="h-6 w-4" :class="[strengthClass(2)]" />
+              <li class="h-6 w-4" :class="[strengthClass(3)]" />
+              <li class="h-6 w-4" :class="[strengthClass(4)]" />
+            </ul>
           </div>
-        </div>
-
+        </article>
         <UButton type="submit">
           Generate
         </UButton>
