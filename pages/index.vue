@@ -1,7 +1,7 @@
 <template>
-  <section class="py-10">
+  <section class="py-10 text-gray-200">
     <div class="container">
-      <h1 class="text-2xl font-bold text-brand-500">
+      <h1 class="text-2xl font-bold ">
         {{ $t('welcome.title') }}
       </h1>
       <!-- Display generated password and its strength -->
@@ -10,12 +10,12 @@
           <h2 class="text-lg font-bold">
             Generated Password:
           </h2>
-          <p class="font-mono text-brand-500">
+          <p class="font-mono ">
             {{ generatedPassword }}
           </p>
         </div>
         <!-- Copy to clipboard button -->
-        <button type="button" class="ml-4 text-brand-500 hover:text-brand-700" @click="copyToClipboard">
+        <button type="button" class="ml-4 " @click="copyToClipboard">
           <UIcon name="material-symbols:content-copy-outline-rounded" />
           <span v-if="copied">COPIED</span>
         </button>
