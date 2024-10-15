@@ -220,17 +220,22 @@ function calculateStrength(password) {
 function strengthClass(level) {
   const score = getPasswordStrengthScore()
 
-  if (score >= level) {
-    if (score <= 2) {
-      return 'bg-carnation'
-    }
-    else if (score <= 4) {
-      return 'bg-cream'
-    }
-    else {
-      return 'bg-brand-700'
-    }
+  // For weak passwords (score <= 2), fill 1-2 bars
+  if (score <= 2 && level <= score) {
+    return 'bg-carnation'
   }
+
+  // For medium passwords (score <= 4), fill up to 3 bars
+  if (score > 2 && score <= 4 && level <= 3) {
+    return 'bg-cream'
+  }
+
+  // For strong passwords (score > 4), fill all 4 bars
+  if (score > 4 && level <= 4) {
+    return 'bg-brand-700'
+  }
+
+  // Any unfilled bars will be gray
   return 'bg-gray-300'
 }
 
