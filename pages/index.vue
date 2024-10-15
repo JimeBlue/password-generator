@@ -258,6 +258,11 @@ function copyToClipboard() {
   }
 }
 
+// Trigger default password generation when the component is mounted
+onMounted(() => {
+  generatePassword()
+})
+
 // Form submit handler (trigger password generation)
 async function onSubmit(event) {
   if (validate(form.value)) {
