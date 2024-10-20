@@ -84,7 +84,15 @@
             </ul>
           </div>
         </article>
-        <UButton type="submit">
+        <UButton
+          type="submit"
+          color="primary"
+          variant="solid"
+          block
+          icon="ic:baseline-arrow-forward"
+          trailing
+          class="mt-10"
+        >
           Generate
         </UButton>
       </UForm>
