@@ -240,7 +240,7 @@ function getStrengthScore(password) {
 }
 
 // Determine strength level based on the score
-function calculateStrength(password) {
+function calculateStrength() {
   const score = strengthScore.value
 
   if (score <= 2) {
@@ -284,7 +284,6 @@ function copyToClipboard() {
     navigator.clipboard.writeText(generatedPassword.value)
       .then(() => {
         copied.value = true // Set copied to true when successful
-        console.log('Password copied to clipboard')
 
         // Reset the copied status after a delay (e.g., 2 seconds)
         setTimeout(() => {
@@ -303,14 +302,14 @@ onMounted(() => {
 })
 
 // Form submit handler (trigger password generation)
-async function onSubmit(event) {
+async function onSubmit() {
   if (validate(form.value)) {
     generatePassword() // Only calculate strength after generation
   }
 }
 
 // Error handler
-async function onError(event) {
-  console.log(event.errors)
+async function onError(_event) {
+
 }
 </script>
