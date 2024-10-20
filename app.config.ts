@@ -100,6 +100,8 @@ export default defineAppConfig({
       container: defaults.height,
       base: 'h-5 w-5 dark:checked:bg-current dark:checked:border-transparent dark:indeterminate:bg-current dark:indeterminate:border-transparent disabled:opacity-50 disabled:cursor-not-allowed focus:ring-0 focus:ring-transparent focus:ring-offset-transparent',
       rounded: 'rounded-none',
+      background: 'bg-transparent dark:bg-gray-900',
+      border: 'border border-gray-300 hover:border-brand-500 dark:border-gray-700',
       label: 'text-base sm:text-lg font-medium text-gray-200 dark:text-gray-200',
     },
     radio: {

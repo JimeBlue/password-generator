@@ -1,5 +1,5 @@
 <template>
-  <section class="grid h-screen place-items-center px-6  sm:px-0">
+  <section class="mt-16 grid place-items-center px-6 sm:px-0">
     <div class="w-full sm:w-[540px]">
       <h1 class="text-center text-lg font-bold text-topaz-500 sm:text-2xl">
         {{ $t('welcome.title') }}
@@ -50,7 +50,10 @@
             name="includeUppercase"
             size="lg"
           >
-            <UCheckbox v-model="form.includeUppercase" label="Include Uppercase Letters" />
+            <UCheckbox
+              v-model="form.includeUppercase"
+              label="Include Uppercase Letters"
+            />
           </UFormGroup>
           <UFormGroup name="includeLowercase" size="lg">
             <UCheckbox v-model="form.includeLowercase" label="Include Lowercase Letters" />
