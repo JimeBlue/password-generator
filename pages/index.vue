@@ -182,7 +182,7 @@ function generatePassword() {
 
   // Ensure there are available characters based on selected options
   if (availableCharacters === '') {
-    generatedPassword.value = 'Please select at least one option'
+    generatedPassword.value = 'Please select at least one character type!'
     return
   }
 
