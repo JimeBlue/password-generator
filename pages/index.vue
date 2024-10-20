@@ -63,12 +63,8 @@
           </UFormGroup>
         </article>
 
-        <!-- Show validation error if no character types are selected -->
-        <div v-if="errors.characterTypes" class="mt-2 text-red-500">
-          {{ errors.characterTypes }}
-        </div>
         <!-- Password strength meter -->
-        <article class="mt-4 flex items-center justify-between bg-topaz-900 p-4 sm:px-8">
+        <article class="mt-10 flex items-center justify-between bg-topaz-900 p-4 sm:px-8">
           <h3 class="text-base font-bold uppercase sm:text-lg">
             <span class="text-topaz-500">Strength</span>
           </h3>
@@ -102,6 +98,7 @@
 
 <script setup>
 import { z } from 'zod'
+import Swal from 'sweetalert2'
 
 // Form state object
 const form = ref({
@@ -150,7 +147,18 @@ function validate(state) {
 
   // Additional custom validation: ensure at least one checkbox is selected
   if (!state.includeUppercase && !state.includeLowercase && !state.includeNumbers && !state.includeSymbols) {
-    errors.characterTypes = 'At least one character type must be selected'
+    // Trigger SweetAlert2 for the error message
+    Swal.fire({
+
+      text: 'At least one character type must be selected!',
+      icon: 'error',
+      confirmButtonText: 'Ok',
+      confirmButtonColor: '#A4FFAF',
+      customClass: {
+        confirmButton: 'text-gray-900', // Add a custom class
+      },
+
+    })
   }
 
   return Object.keys(errors).length === 0
