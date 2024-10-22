@@ -1,6 +1,6 @@
 # Password generator app
 
-**Live Site URL:** [password-generator-rust-ten-63.vercel.app](password-generator-rust-ten-63.vercel.app)
+**Live Site URL:** [password-generator-rust-ten-63.vercel.app/](https://password-generator-rust-ten-63.vercel.app/)
 
 This is a solution to the [Password generator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
