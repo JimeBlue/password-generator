@@ -11,14 +11,13 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'A simple Nuxt 3 boilerplate for basic projects.' },
-        { hid: 'keywords', name: 'keywords', content: 'Nuxt 3, boilerplate, web development, Tailwind CSS, Nuxt UI' },
+        { hid: 'description', name: 'description', content: 'Generate secure and customizable passwords with ease using our password generator tool.' },
+        { hid: 'keywords', name: 'keywords', content: 'password generator, secure passwords, strong passwords, web security, Nuxt 3, Tailwind CSS, Nuxt UI' },
         { hid: 'author', name: 'author', content: 'Jimena Miguez' },
         { name: 'robots', content: 'index, follow' },
-        { name: 'og:title', content: 'JimeBlue-boilerplate-basic' },
-        { name: 'og:description', content: 'A simple Nuxt 3 boilerplate for basic projects.' },
-        { name: 'og:image', content: '/og-image.png' }, // Add an Open Graph image
-        { name: 'og:url', content: 'https://yourwebsite.com' }, // Update with the correct URL
+        { name: 'og:title', content: 'Secure Password Generator' },
+        { name: 'og:description', content: 'Create secure and customizable passwords instantly. Protect your online accounts with strong passwords.' },
+
       ],
       link: [{ rel: 'icon', type: 'image/png', href: '/favicon.png' }],
     },
