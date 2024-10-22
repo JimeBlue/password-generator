@@ -1,6 +1,6 @@
 # Password generator app
 
-**Live Site URL:** [https://lm-github-user-search.netlify.app/](https://dev-scout.netlify.app/)
+**Live Site URL:** [https://password-generator-cd52yak2f-jimenas-projects-96ac350c.vercel.app/](https://password-generator-cd52yak2f-jimenas-projects-96ac350c.vercel.app/)
 
 This is a solution to the [Password generator app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
